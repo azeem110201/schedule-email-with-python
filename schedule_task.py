@@ -7,6 +7,12 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import os
+from configparser import ConfigParser
+
+file = "config.ini"
+config = ConfigParser()
+config.read(file)
 
 def extract(ticker):
     ma = ModelAnalysis(ticker)
@@ -18,9 +24,9 @@ def job(args_):
 
     subject = "An email with attachment from Azeem"
     body = "This is an email with attachment sent from Azeem"
-    sender_email = "emailfortestingsoftware11@gmail.com"
+    sender_email = config['details']['email']
     receiver_email = args_[0]
-    password = "fr57@zu70suesmjcetcsetesting"
+    password = config['details']['password']
 
     message = MIMEMultipart()
     message["From"] = sender_email
@@ -49,10 +55,16 @@ def job(args_):
     text = message.as_string()
 
     context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 587, context=context) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, text)
 
+    
+    try:
+        os.remove("data.csv")
+        print("data deleted")
+    except Exception as e:
+        print(e.message())    
 
 
     # server = smtplib.SMTP('smtp.gmail.com',587)
@@ -73,7 +85,7 @@ def get_email(email, ticker):
         if n is None:
             break
         elif n > 0:
-            print("Your data is being loaded...")
+            time.sleep(0.5)
         schedule.run_pending()
 
 
