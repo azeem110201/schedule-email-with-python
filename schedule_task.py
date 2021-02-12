@@ -60,11 +60,11 @@ def job(args_):
         server.sendmail(sender_email, receiver_email, text)
 
     
-    try:
-        os.remove("data.csv")
-        print("data deleted")
-    except Exception as e:
-        print(e.message())    
+    # try:
+    #     os.remove("data.csv")
+    #     print("data deleted")
+    # except Exception as e:
+    #     print(e.message())    
 
 
     # server = smtplib.SMTP('smtp.gmail.com',587)

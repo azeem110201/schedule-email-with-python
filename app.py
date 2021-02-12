@@ -14,7 +14,7 @@ def send_email():
         ticker = request.form['ticker']
         get_email(email, ticker)
         
-    return render_template("sent_signal.html",email=email)    
+    #return render_template("sent_signal.html",email=email)    
 
 
 if __name__ == "__main__":
