@@ -1,1 +1,1 @@
-Scheduling Emails with Python, Flask, Schedule and yfinance
+Scheduling Stock Market updates related Emails with Python, Flask, Schedule and yfinance
